@@ -1,10 +1,14 @@
-package com.isolf.qlnhansu.dao;
+package nhanvien;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Connection_Isolf {
+
+    static Connection getConnection() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     private Connection conn;
     public Connection_Isolf() throws ClassNotFoundException, SQLException
     {

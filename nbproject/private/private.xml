@@ -3,7 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/CODE/nhanvien/src/nhanvien/NhanVienDAO.java</file>
+            <file>file:/D:/CODE/nhanvien/src/com/isolf/qlnhansu/dao/ql_nhansu_isolf.sql</file>
+            <file>file:/D:/CODE/nhanvien/src/com/isolf/qlnhansu/dao/NhanVienDAO.java</file>
+            <file>file:/D:/CODE/nhanvien/src/com/isolf/qlnhansu/dao/Connection_Isolf.java</file>
         </group>
     </open-files>
 </project-private>

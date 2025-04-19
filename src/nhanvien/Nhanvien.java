@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package com.isolf.qlnhansu.dao;
+package nhanvien;
 
 /**
  *
@@ -19,6 +19,38 @@ public abstract class Nhanvien {
         this.maNV = maNV;
         this.hoTen = hoTen;
         this.phongBan = phongBan;
+        this.luongCoBan = luongCoBan;
+    }
+
+    public String getMaNV() {
+        return maNV;
+    }
+
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
+    }
+
+    public String getHoTen() {
+        return hoTen;
+    }
+
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
+    }
+
+    public String getPhongBan() {
+        return phongBan;
+    }
+
+    public void setPhongBan(String phongBan) {
+        this.phongBan = phongBan;
+    }
+
+    public double getLuongCoBan() {
+        return luongCoBan;
+    }
+
+    public void setLuongCoBan(double luongCoBan) {
         this.luongCoBan = luongCoBan;
     }
 
