@@ -5,7 +5,7 @@ import java.util.*;
 
 public class NhanVienDAO {
 
-    // Lấy toàn bộ danh sách nhân viên từ DB
+    // Lấy danh sách
     public List<Nhanvien> getAll() throws Exception {
         List<Nhanvien> list = new ArrayList<>();
         String sql = "SELECT * FROM nhanvien";
@@ -37,10 +37,9 @@ public class NhanVienDAO {
         return list;
     }
 
-    // Thêm nhân viên
+    // Thêm
     public void insert(Nhanvien nv) throws Exception {
-        String sql = "INSERT INTO nhanvien(maNV, hoTen, phongBan, luongCoBan, loaiNV, doanhSo, hoaHong, luongTrachNhiem) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO nhanvien VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = Connection_Isolf.getConnection();
              PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -73,7 +72,7 @@ public class NhanVienDAO {
         }
     }
 
-    // Xóa theo mã
+    // Xoá
     public boolean delete(String maNV) throws Exception {
         String sql = "DELETE FROM nhanvien WHERE maNV=?";
         try (Connection con = Connection_Isolf.getConnection();
@@ -83,18 +82,31 @@ public class NhanVienDAO {
         }
     }
 
-    // Tìm kiếm theo mã
+    // Tìm theo mã
     public Nhanvien findById(String maNV) throws Exception {
         String sql = "SELECT * FROM nhanvien WHERE maNV=?";
         try (Connection con = Connection_Isolf.getConnection();
              PreparedStatement stmt = con.prepareStatement(sql)) {
+
             stmt.setString(1, maNV);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // giống như getAll, nhưng chỉ một dòng
-                // tái sử dụng đoạn tạo đối tượng từ ResultSet
-                // bạn có thể refactor ra hàm riêng
+                String ten = rs.getString("hoTen");
+                String pb = rs.getString("phongBan");
+                double lcb = rs.getDouble("luongCoBan");
+                String loai = rs.getString("loaiNV");
+
+                if ("hanhchinh".equalsIgnoreCase(loai)) {
+                    return new NhanVienHanhChinh(maNV, ten, pb, lcb);
+                } else if ("tiepthi".equalsIgnoreCase(loai)) {
+                    double ds = rs.getDouble("doanhSo");
+                    double hh = rs.getDouble("hoaHong");
+                    return new NhanVienTiepThi(maNV, ten, pb, lcb, ds, hh);
+                } else if ("truongphong".equalsIgnoreCase(loai)) {
+                    double tn = rs.getDouble("luongTrachNhiem");
+                    return new TruongPhong(maNV, ten, pb, lcb, tn);
+                }
             }
         }
         return null;
@@ -103,6 +115,7 @@ public class NhanVienDAO {
     // Cập nhật
     public boolean update(Nhanvien nv) throws Exception {
         String sql = "UPDATE nhanvien SET hoTen=?, phongBan=?, luongCoBan=?, loaiNV=?, doanhSo=?, hoaHong=?, luongTrachNhiem=? WHERE maNV=?";
+
         try (Connection con = Connection_Isolf.getConnection();
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
