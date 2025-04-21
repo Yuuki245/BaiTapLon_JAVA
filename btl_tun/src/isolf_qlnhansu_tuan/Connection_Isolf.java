@@ -1,4 +1,4 @@
-package com.isolf.qlnhansu.dao;
+package isolf_qlnhansu_tuan;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ public class Connection_Isolf {
     public Connection_Isolf() throws ClassNotFoundException, SQLException
     {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/qlnguoidung";
+        String url = "jdbc:mysql://localhost:3306/ql_nhansu_isolf";
         this.conn = DriverManager.getConnection(url, "root", "");
         if(this.conn != null)
             System.out.println("Kết nối thành công !");
