@@ -7,6 +7,7 @@ package View;
 import DAO.Connection_Isolf;
 import DAO.PhongBanDAO;
 import Model.PhongBan;
+import Model.User;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -21,8 +22,12 @@ public class PhongBanPanel extends javax.swing.JPanel {
     /**
      * Creates new form pb_panel
      */
-    public PhongBanPanel() {
+    private User currentUser;
+
+    public PhongBanPanel(User user) {
+        this.currentUser = user;
         initComponents();
+        phanQuyenTheoVaiTro();
         hienThiDanhSachPhongBan();
     }
 
@@ -74,11 +79,10 @@ public class PhongBanPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPB = new javax.swing.JTable();
         jSeparator2 = new javax.swing.JSeparator();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        btThem = new javax.swing.JButton();
+        btSua = new javax.swing.JButton();
+        btXoa = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -91,6 +95,7 @@ public class PhongBanPanel extends javax.swing.JPanel {
         jButton20 = new javax.swing.JButton();
         jButton21 = new javax.swing.JButton();
         jButton22 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -123,6 +128,7 @@ public class PhongBanPanel extends javax.swing.JPanel {
         jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/2.jpg"))); // NOI18N
 
         setPreferredSize(new java.awt.Dimension(800, 600));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tbPB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -167,26 +173,32 @@ public class PhongBanPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tbPB);
 
-        jButton9.setText("Thêm");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 374, 721, 200));
+        add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 358, 721, 10));
 
-        jButton10.setText("Sửa");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        btThem.setText("Thêm");
+        btThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                btThemActionPerformed(evt);
             }
         });
+        add(btThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 111, 84, -1));
 
-        jButton11.setText("Xóa");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        btSua.setText("Sửa");
+        btSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                btSuaActionPerformed(evt);
             }
         });
+        add(btSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 166, 84, -1));
+
+        btXoa.setText("Xóa");
+        btXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btXoaActionPerformed(evt);
+            }
+        });
+        add(btXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 211, 84, -1));
 
         jButton12.setText("Hiển Thị Nhân Viên Phòng Ban");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
@@ -194,16 +206,19 @@ public class PhongBanPanel extends javax.swing.JPanel {
                 jButton12ActionPerformed(evt);
             }
         });
-
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 3, 24)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 102, 102));
-        jLabel9.setText("Phòng Ban ISOLF");
+        add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 266, -1, -1));
 
         jLabel1.setText("Mã phòng ban");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 126, 101, -1));
 
         jLabel2.setText("Tên phòng ban");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 193, 101, -1));
 
         jLabel3.setText("Mô tả");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 249, 101, -1));
+        add(tf_mapb, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 121, 158, -1));
+        add(tf_tenpb, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 188, 158, -1));
+        add(tf_mota, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 232, 266, 61));
 
         jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/3.jpg"))); // NOI18N
         jButton17.addActionListener(new java.awt.event.ActionListener() {
@@ -211,6 +226,7 @@ public class PhongBanPanel extends javax.swing.JPanel {
                 jButton17ActionPerformed(evt);
             }
         });
+        add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 311, -1, -1));
 
         jButton18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/4.jpg"))); // NOI18N
         jButton18.addActionListener(new java.awt.event.ActionListener() {
@@ -218,6 +234,7 @@ public class PhongBanPanel extends javax.swing.JPanel {
                 jButton18ActionPerformed(evt);
             }
         });
+        add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(265, 311, -1, -1));
 
         jButton19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/1.jpg"))); // NOI18N
         jButton19.addActionListener(new java.awt.event.ActionListener() {
@@ -225,6 +242,7 @@ public class PhongBanPanel extends javax.swing.JPanel {
                 jButton19ActionPerformed(evt);
             }
         });
+        add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 311, -1, -1));
 
         jButton20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/2.jpg"))); // NOI18N
         jButton20.addActionListener(new java.awt.event.ActionListener() {
@@ -232,6 +250,7 @@ public class PhongBanPanel extends javax.swing.JPanel {
                 jButton20ActionPerformed(evt);
             }
         });
+        add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 311, -1, -1));
 
         jButton21.setText("Xóa DL");
         jButton21.addActionListener(new java.awt.event.ActionListener() {
@@ -239,6 +258,7 @@ public class PhongBanPanel extends javax.swing.JPanel {
                 jButton21ActionPerformed(evt);
             }
         });
+        add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 111, 78, -1));
 
         jButton22.setText("Hiển Thị");
         jButton22.addActionListener(new java.awt.event.ActionListener() {
@@ -246,123 +266,26 @@ public class PhongBanPanel extends javax.swing.JPanel {
                 jButton22ActionPerformed(evt);
             }
         });
+        add(jButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 166, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tf_tenpb, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tf_mota, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tf_mapb, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton19)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton20)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton17)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton18)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton12)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(96, 96, 96))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 721, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(285, 285, 285)
-                            .addComponent(jLabel9))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(37, 37, 37)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 721, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(42, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(tf_mapb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tf_tenpb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(jLabel3)
-                                .addGap(28, 28, 28))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tf_mota, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton9)
-                            .addComponent(jButton21))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton10)
-                            .addComponent(jButton22))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton11)
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton12)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton19)
-                    .addComponent(jButton20)
-                    .addComponent(jButton17)
-                    .addComponent(jButton18))
-                .addGap(4, 4, 4)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
-        );
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/backpanel2.png"))); // NOI18N
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
         // TODO add your handling code here:
         themPhongBan();
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_btThemActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void btSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuaActionPerformed
         // TODO add your handling code here:
         suaPhongBan();
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_btSuaActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
         // TODO add your handling code here:
         xoaPhongBan();
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_btXoaActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
@@ -418,6 +341,20 @@ public class PhongBanPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         hienThiDanhSachPhongBan();
     }//GEN-LAST:event_jButton22ActionPerformed
+    private void phanQuyenTheoVaiTro() {
+        String role = currentUser.getRole().toLowerCase();
+
+        if (role.equals("intern")) {
+            btThem.setEnabled(false);
+            btSua.setEnabled(false);
+            btXoa.setEnabled(false);
+        } else if (role.equals("hr")) {
+            // OK
+        } else if (role.equals("admin")) {
+            // OK
+        }
+    }
+
     public void xoaFormPhongBan() {
         tf_mapb.setText("");
         tf_tenpb.setText("");
@@ -501,9 +438,10 @@ public class PhongBanPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btSua;
+    private javax.swing.JButton btThem;
+    private javax.swing.JButton btXoa;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
@@ -522,11 +460,10 @@ public class PhongBanPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

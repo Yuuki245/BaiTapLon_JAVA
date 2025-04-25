@@ -5,6 +5,8 @@
 package View;
 
 import Model.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,23 +21,37 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame(User user) {
         initComponents();
         setLocationRelativeTo(null);
+        new Thread() {
+            public void run() {
+                try {
+                    SimpleDateFormat clock = new SimpleDateFormat();
+                    Date date = new Date();
+                    clock.applyPattern("hh:mm:ss aa");
+                    String time = clock.format(date);
+                    Thread.sleep(1000);
+                    lbClock.setText(time);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
         String role = user.getRole().toLowerCase();
         switch (role) {
             case "admin":
-                jTabbedPane1.addTab("Nhân viên", new NhanVienPanel());
-                jTabbedPane1.addTab("Phòng ban", new PhongBanPanel());
-                jTabbedPane1.addTab("Sinh viên", new SinhVienPanel());
+                jTabbedPane1.addTab("Nhân viên", new NhanVienPanel(user));
+                jTabbedPane1.addTab("Phòng ban", new PhongBanPanel(user));
+                jTabbedPane1.addTab("Sinh viên", new SinhVienPanel(user));
                 jTabbedPane1.addTab("Tài khoản", new UserPanel());
                 break;
 
             case "hr":
-                jTabbedPane1.addTab("Nhân viên", new NhanVienPanel());
-                jTabbedPane1.addTab("Phòng ban", new PhongBanPanel());
-                jTabbedPane1.addTab("Sinh viên", new SinhVienPanel());
+                jTabbedPane1.addTab("Nhân viên", new NhanVienPanel(user));
+                jTabbedPane1.addTab("Phòng ban", new PhongBanPanel(user));
+                jTabbedPane1.addTab("Sinh viên", new SinhVienPanel(user));
                 break;
 
             case "intern":
-                jTabbedPane1.addTab("Sinh viên", new SinhVienPanel());
+                jTabbedPane1.addTab("Sinh viên", new SinhVienPanel(user));
                 break;
 
             default:
@@ -56,6 +72,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jLabel1 = new javax.swing.JLabel();
+        lbClock = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Công Ty ISOLF");
@@ -64,29 +82,23 @@ public class MainFrame extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 800, 600));
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 3, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel1.setForeground(new java.awt.Color(0, 0, 153));
         jLabel1.setText("Công Ty ISOLF");
+        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 335, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(221, 221, 221)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(244, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        lbClock.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        lbClock.setText("Time");
+        getContentPane().add(lbClock, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 107, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/back1.jpg"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 130));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -135,6 +147,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lbClock;
     // End of variables declaration//GEN-END:variables
 }
