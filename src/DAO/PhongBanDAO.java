@@ -3,7 +3,9 @@ package DAO;
 import Model.PhongBan;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PhongBanDAO {
 
@@ -12,15 +14,14 @@ public class PhongBanDAO {
         List<PhongBan> list = new ArrayList<>();
         String sql = "SELECT * FROM phongban";
 
-        try (Connection conn = Connection_Isolf.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Connection_Isolf.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 list.add(new PhongBan(
-                    rs.getString("maPB"),
-                    rs.getString("tenPB"),
-                    rs.getString("moTa")
+                        rs.getString("maPB"),
+                        rs.getString("tenPB"),
+                        rs.getString("moTa")
                 ));
             }
         }
@@ -32,8 +33,7 @@ public class PhongBanDAO {
     public void addPhongBan(PhongBan pb) throws SQLException {
         String sql = "INSERT INTO phongban (maPB, tenPB, moTa) VALUES (?, ?, ?)";
 
-        try (Connection conn = Connection_Isolf.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Connection_Isolf.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, pb.getMaPB());
             stmt.setString(2, pb.getTenPB());
@@ -46,8 +46,7 @@ public class PhongBanDAO {
     public void deletePhongBan(String maPB) throws SQLException {
         String sql = "DELETE FROM phongban WHERE maPB = ?";
 
-        try (Connection conn = Connection_Isolf.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Connection_Isolf.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, maPB);
             stmt.executeUpdate();
@@ -58,8 +57,7 @@ public class PhongBanDAO {
     public void updatePhongBan(PhongBan pb) throws SQLException {
         String sql = "UPDATE phongban SET tenPB=?, moTa=? WHERE maPB=?";
 
-        try (Connection conn = Connection_Isolf.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Connection_Isolf.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, pb.getTenPB());
             stmt.setString(2, pb.getMoTa());
@@ -67,4 +65,20 @@ public class PhongBanDAO {
             stmt.executeUpdate();
         }
     }
+
+    public Map<String, Integer> thongKeSoLuongNhanVienTheoPhong() throws SQLException {
+        Map<String, Integer> map = new HashMap<>();
+        String sql = "SELECT phongBan, COUNT(*) AS soLuong FROM nhanvien GROUP BY phongBan";
+
+        try (Connection conn = Connection_Isolf.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String phong = rs.getString("phongBan");
+                int soLuong = rs.getInt("soLuong");
+                map.put(phong, soLuong);
+            }
+        }
+        return map;
+    }
+
 }

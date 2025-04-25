@@ -21,8 +21,20 @@ public class UserDAO {
         }
         return null;
     }
-    // Lấy tất cả user
 
+    public void addUser(User user) throws SQLException {
+        String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+
+        try (Connection conn = Connection_Isolf.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getRole());
+            stmt.executeUpdate();
+        }
+    }
+
+    // Lấy tất cả user
     public List<User> getAllUsers() throws SQLException {
         List<User> list = new ArrayList<>();
         String sql = "SELECT * FROM users";

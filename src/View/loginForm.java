@@ -96,7 +96,7 @@ public class loginForm extends javax.swing.JFrame {
         tf_mk.setBackground(new java.awt.Color(255, 153, 153));
         getContentPane().add(tf_mk, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, 200, -1));
 
-        hinhNen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/1.png"))); // NOI18N
+        hinhNen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/back.png"))); // NOI18N
         hinhNen.setToolTipText("");
         getContentPane().add(hinhNen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 450));
 
